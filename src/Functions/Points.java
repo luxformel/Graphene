@@ -4,9 +4,7 @@
  */
 package Functions;
 
-import Axis.Axis;
-import Line.Line;
-import Line.Lines;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
@@ -30,8 +28,8 @@ public class Points {
         return alPoints.get(index);
     }
 
-    public static boolean add(Point e) {
-        return alPoints.add(e);
+    public static void add(Point e) {
+         alPoints.add(e);
     }
 
     public static void clear() {
@@ -39,17 +37,18 @@ public class Points {
     }
     
     public static void drawLines(Graphics g){
-        for (int i = 1; i < alPoints.size(); i++) {
-            
+        for (int i = 1; i < alPoints.size(); i++) {     
+            /*
             Point position1 = alPoints.get(i - 1);
-            position1 = TranslateCoordinates.translateCoordinatesFromFunctionToPanel(position1, 600);
-            
             Point position2 = alPoints.get(i);
-            //position2.x += 500;
-            //position2.y += 500;
-            
             Lines.add(new Line(position1, position2));
+            */
+            Point point = alPoints.get(i);
+            g.setColor(Color.red);
+            g.fillOval(point.x - 7, point.x - 7, 15, 15);
         }
-        Lines.draw(g);
+       
     }
+    
+    
 }

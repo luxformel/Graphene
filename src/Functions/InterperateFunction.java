@@ -19,7 +19,7 @@ public class InterperateFunction{
 
     public static void interperate(String inputFunction, int fromX, int toX) {
         //String inputFunction = "3 * sin(x) + ln(2) / cos(0.5)";
-        for (int i = fromX; i <= toX; i++) {
+        for (double i = fromX; i <= toX; i++) {
             String instructions = parseMathOperations(inputFunction);
             System.out.println("Instructions:");
             System.out.println(instructions);
@@ -29,8 +29,11 @@ public class InterperateFunction{
 
             double result = evaluateMathExpression(inputFunction, variables);
             System.out.println("Result: " + result);
-            System.out.println("X: " + (int) i + "Y: " + (int) result);
-            Points.add(new Point((int) i, (int) result));
+            System.out.println("X: " + (int) i + "; Y: " + (int) result);
+            Point point = new Point((int) i, (int) result);
+            point = TranslateCoordinates.translateCoordinatesFromFunctionToPanel(point);
+            Points.add(point);
+            System.out.println("Translated: X: " + point.x + "; Y: " + point.y);
         }
     }
 

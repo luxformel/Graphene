@@ -8,7 +8,6 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 
 /**
  *
@@ -18,25 +17,32 @@ public class Axis {
     
     private static int numberOfDivisingLinesX = 1;
     private static int numberOfDivisingLinesY = 1;
-    private static int fromX,toX,fromY,toY;
+    private static int startX = -9, startY = -3, endX = 9, endY = 3;
     private static int distanceBetweenLinesX, distanceBetweenLinesY;
+    private static String typOfAxis = "Normal";
+    
+     public static void setTypOfAxis(String typOfAxis) {
+        Axis.typOfAxis = typOfAxis;
+    }
+
+    public static void setStartX(int startX) {
+        Axis.startX = startX;
+    }
+
+    public static void setEndX(int endX) {
+        Axis.endX = endX;
+    }
+
+    public static void setStartY(int startY) {
+        Axis.startY = startY;
+    }
+
+    public static void setEndY(int endY) {
+        Axis.endY = endY;
+    }
     
     
-    public static void setFromX(int fromX) {
-        Axis.fromX = fromX;
-    }
-
-    public static void setToX(int toX) {
-        Axis.toX = toX;
-    }
-
-    public static void setFromY(int fromY) {
-        Axis.fromY = fromY;
-    }
-
-    public static void setToY(int toY) {
-        Axis.toY = toY;
-    }
+    
 
     public static void setDistanceBetweenLinesX(int distanceBetweenLinesX) {
         Axis.distanceBetweenLinesX = distanceBetweenLinesX;
@@ -61,22 +67,41 @@ public class Axis {
     }
 
     public static int getDistanceBetweenLinesX() {
+        System.out.println("distance between x lines " + distanceBetweenLinesX);
         return distanceBetweenLinesX;
     }
 
     public static int getDistanceBetweenLinesY() {
         return distanceBetweenLinesY;
     }
-    
+
+    public static int getStartX() {
+        return startX;
+    }
+
+    public static int getEndX() {
+        return endX;
+    }
+
+    public static int getStartY() {
+        return startY;
+    }
+
+    public static int getEndY() {
+        return endY;
+    }
+    public static String getTypOfAxis() {
+        return typOfAxis;
+    }
     
     
     public static void calculateXDistance(){
-        int lenght = Math.abs(fromX) + Math.abs(toX);
+        int lenght = Math.abs(startX) + Math.abs(endX);
         setNumberOfDivisingLinesX(lenght);
     }
     
     public static void calculateYDistance(){
-        int lenght = Math.abs(fromY) + Math.abs(toY);
+        int lenght = Math.abs(startY) + Math.abs(endY);
         setNumberOfDivisingLinesY(lenght);
     }
     
@@ -92,7 +117,7 @@ public class Axis {
             
             Axis.setDistanceBetweenLinesY((int)height / Axis.numberOfDivisingLinesY);
             
-            int heightXAxis = Math.abs(fromY) * distanceBetweenLinesY;
+            int heightXAxis = Math.abs(endY) * distanceBetweenLinesY;
             
             g2D.drawLine(0, heightXAxis, width - 5, heightXAxis);
             // arrow x 
@@ -105,7 +130,7 @@ public class Axis {
             
             Axis.setDistanceBetweenLinesX((int)width / Axis.numberOfDivisingLinesX);
             
-            int heightYAxis = Math.abs(fromX) * distanceBetweenLinesX;
+            int heightYAxis = Math.abs(startX) * distanceBetweenLinesX;
             
             g2D.drawLine(heightYAxis, 5, heightYAxis, height);
             // arrow y 

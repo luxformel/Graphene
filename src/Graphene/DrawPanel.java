@@ -19,7 +19,7 @@ public class DrawPanel extends javax.swing.JPanel {
     private AxisPoints axisPoints;
     private Points points;
     private String typeOfAxis = "Normal";
-    private boolean drawLines = false;
+    private boolean drawLines = true;
 
     
     /**
@@ -63,16 +63,16 @@ public class DrawPanel extends javax.swing.JPanel {
        
         switch (typeOfAxis) {
             case "Down":
-                Axis.drawBackgroundLines(getWidth(), getHeight(), g);
-                  Axis.drawAxisDown(getWidth(), getHeight(), g);
+                    Axis.drawBackgroundLines(getWidth(), getHeight(), g);
+                    Axis.drawAxisDown(getWidth(), getHeight(), g);
                 break;
             case "Up":
-                Axis.drawBackgroundLines(getWidth(), getHeight(), g);
-                  Axis.drawAxisUp(getWidth(), getHeight(), g);
+                    Axis.drawBackgroundLines(getWidth(), getHeight(), g);
+                    Axis.drawAxisUp(getWidth(), getHeight(), g);
                 break;
             case "Normal":
-                Axis.drawBackgroundLines(getWidth(), getHeight(), g);
-                 Axis.drawAxis(getWidth(), getHeight(), g);  
+                    Axis.drawBackgroundLines(getWidth(), getHeight(), g);
+                    Axis.drawAxis(getWidth(), getHeight(), g);  
                 break;
             default:
                 throw new AssertionError();

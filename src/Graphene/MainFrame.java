@@ -11,7 +11,12 @@ import Functions.InterperateFunction;
 import Functions.Points;
 import Line.Lines;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFileChooser;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 /**
  *
@@ -28,17 +33,39 @@ public class MainFrame extends javax.swing.JFrame {
     
     public MainFrame() {
         initComponents();
+        loadComboBox();
         functionTextField.setText("");
         drawPanel.setTypeOfAxis("Down");
         normalRadioButton.setSelected(true);
         drawPanel.setAxisPoints(axisPoints);
+        
+        System.out.println("width: " + drawPanel.getWidth());
+        System.out.println("height: " + drawPanel.getHeight());
+        updateView();
     }
     
     public void updateView(){
         drawPanel.setAxisPoints(axisPoints);
         repaint();
     }
-
+    
+    public void defaultAxisAtStart(){
+        //drawPanel.set
+    }
+    
+    public void loadComboBox(){
+        UIManager.LookAndFeelInfo[] lafInfo = UIManager.getInstalledLookAndFeels();
+        
+        String name;
+        String[] names = new String[lafInfo.length];
+        for (int i = 0; i < lafInfo.length; i++) {
+            name = lafInfo[i].getName();
+            names[i] = name;
+            System.out.println(name);
+        }
+        jThemeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(names));
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -54,24 +81,16 @@ public class MainFrame extends javax.swing.JFrame {
         downRadioButton = new javax.swing.JRadioButton();
         upRadioButton = new javax.swing.JRadioButton();
         normalRadioButton = new javax.swing.JRadioButton();
-        drawAxisButton = new javax.swing.JButton();
         functionTextField = new javax.swing.JTextField();
-        fromSpinnerX = new javax.swing.JSpinner();
-        toSpinnerX = new javax.swing.JSpinner();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        fromSpinnerY = new javax.swing.JSpinner();
-        toSpinnerY = new javax.swing.JSpinner();
-        jLabel7 = new javax.swing.JLabel();
         clearButton = new javax.swing.JButton();
         drawPanel = new Graphene.DrawPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jThemeComboBox = new javax.swing.JComboBox<>();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jExportMenuItem = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        jConfigureAxisMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,26 +112,7 @@ public class MainFrame extends javax.swing.JFrame {
         axisButtonGroup.add(normalRadioButton);
         normalRadioButton.setText("Normal");
 
-        drawAxisButton.setText("Draw Axis");
-        drawAxisButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                drawAxisButtonActionPerformed(evt);
-            }
-        });
-
         functionTextField.setText("jTextField1");
-
-        jLabel2.setText("From:");
-
-        jLabel3.setText("To:");
-
-        jLabel4.setText("X");
-
-        jLabel5.setText("To:");
-
-        jLabel6.setText("Y");
-
-        jLabel7.setText("From:");
 
         clearButton.setText("Clear");
         clearButton.addActionListener(new java.awt.event.ActionListener() {
@@ -125,12 +125,21 @@ public class MainFrame extends javax.swing.JFrame {
         drawPanel.setLayout(drawPanelLayout);
         drawPanelLayout.setHorizontalGroup(
             drawPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 968, Short.MAX_VALUE)
+            .addGap(0, 1863, Short.MAX_VALUE)
         );
         drawPanelLayout.setVerticalGroup(
             drawPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 1013, Short.MAX_VALUE)
         );
+
+        jLabel8.setText("Select LookAndFeel:");
+
+        jThemeComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jThemeComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jThemeComboBoxActionPerformed(evt);
+            }
+        });
 
         jMenu1.setText("File");
 
@@ -145,7 +154,16 @@ public class MainFrame extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenu1);
 
-        jMenu2.setText("Edit");
+        jMenu2.setText("Axis");
+
+        jConfigureAxisMenuItem.setText("Configure Axis");
+        jConfigureAxisMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jConfigureAxisMenuItemActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jConfigureAxisMenuItem);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -155,57 +173,39 @@ public class MainFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(jThemeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(functionTextField)
-                            .addComponent(functionButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(96, 96, 96)
-                                        .addComponent(jLabel1))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(downRadioButton)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(normalRadioButton)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(upRadioButton))
-                                    .addComponent(drawAxisButton, javax.swing.GroupLayout.PREFERRED_SIZE, 261, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(fromSpinnerX, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel2))
-                                        .addGap(80, 80, 80)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel3)
-                                            .addComponent(toSpinnerX, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(fromSpinnerY, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(jLabel7))
-                                        .addGap(80, 80, 80)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel5)
-                                            .addComponent(toSpinnerY, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGap(96, 96, 96)
+                                .addComponent(jLabel1))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(downRadioButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(normalRadioButton)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(upRadioButton))
+                            .addComponent(clearButton)
+                            .addComponent(jLabel8))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(clearButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(functionButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(functionTextField, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(drawPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(drawPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(drawPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -213,36 +213,16 @@ public class MainFrame extends javax.swing.JFrame {
                             .addComponent(downRadioButton)
                             .addComponent(normalRadioButton)
                             .addComponent(upRadioButton))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(drawAxisButton)
-                        .addGap(2, 2, 2)
-                        .addComponent(jLabel4)
-                        .addGap(12, 12, 12)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
-                        .addGap(5, 5, 5)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(fromSpinnerX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(toSpinnerX, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel7))
-                        .addGap(5, 5, 5)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(fromSpinnerY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(toSpinnerY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(61, 61, 61)
+                        .addGap(239, 239, 239)
                         .addComponent(functionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(functionButton)
-                        .addGap(68, 68, 68)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(clearButton)
-                        .addGap(0, 113, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel8)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jThemeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
         pack();
@@ -255,37 +235,16 @@ public class MainFrame extends javax.swing.JFrame {
         Points.clear();
         System.out.println("Hello World!");
         String function = functionTextField.getText();
-        int fromX = (int) fromSpinnerX.getValue();
-        int toX = (int) toSpinnerX.getValue();
-        InterperateFunction.interperate(function, fromX, toX);
+        
+        int startX = Axis.getStartX();
+        int endX = Axis.getEndX();
+        
+        InterperateFunction.interperate(function, startX, endX);  
         drawPanel.setDrawLines(true);
         updateView();
-        System.out.println("number of lines: " + Lines.size());
+        System.out.println("number of points: " + Points.size());
+        
     }//GEN-LAST:event_functionButtonActionPerformed
-
-    private void drawAxisButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drawAxisButtonActionPerformed
-        // TODO add your handling code here:
-        // sets X
-        Axis.setFromX((int) fromSpinnerX.getValue());
-        Axis.setToX((int) toSpinnerX.getValue());
-        Axis.calculateXDistance();
-        
-        
-        // sets Y 
-        Axis.setFromY((int) fromSpinnerY.getValue());
-        Axis.setToY((int) toSpinnerY.getValue());
-        Axis.calculateYDistance();
-        
-        // draws the appropriate Axis
-        if (downRadioButton.isSelected()) {
-            drawPanel.setTypeOfAxis("Down");
-        }else if (upRadioButton.isSelected()) {
-            drawPanel.setTypeOfAxis("Up");
-        }else if (normalRadioButton.isSelected()) {
-            drawPanel.setTypeOfAxis("Normal");
-        }
-        updateView();
-    }//GEN-LAST:event_drawAxisButtonActionPerformed
 
     private void jExportMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jExportMenuItemActionPerformed
         // TODO add your handling code here:
@@ -316,31 +275,54 @@ public class MainFrame extends javax.swing.JFrame {
         updateView();   
     }//GEN-LAST:event_clearButtonActionPerformed
 
+    private void jThemeComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jThemeComboBoxActionPerformed
+        // TODO add your handling code here:
+         // TODO add your handling code here:
+        String lookAndFeelName =  String.valueOf(jThemeComboBox.getSelectedItem());
+            if (lookAndFeelName != null) {
+                for (UIManager.LookAndFeelInfo info:UIManager.getInstalledLookAndFeels()) {
+                    if (lookAndFeelName.equals(info.getName())) {
+                        try {
+                            UIManager.setLookAndFeel(info.getClassName());
+                            SwingUtilities.updateComponentTreeUI(this);
+                        } catch (ClassNotFoundException ex) {
+                            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (InstantiationException ex) {
+                            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (IllegalAccessException ex) {
+                            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (UnsupportedLookAndFeelException ex) {
+                            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        break;
+                    }       
+                }
+            }
+    }//GEN-LAST:event_jThemeComboBoxActionPerformed
+
+    private void jConfigureAxisMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jConfigureAxisMenuItemActionPerformed
+        // TODO add your handling code here:
+        AxisConfigFrame axisConfigFrame = new AxisConfigFrame();
+        axisConfigFrame.show();
+    }//GEN-LAST:event_jConfigureAxisMenuItemActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup axisButtonGroup;
     private javax.swing.JButton clearButton;
     private javax.swing.JRadioButton downRadioButton;
-    private javax.swing.JButton drawAxisButton;
     private Graphene.DrawPanel drawPanel;
-    private javax.swing.JSpinner fromSpinnerX;
-    private javax.swing.JSpinner fromSpinnerY;
     private javax.swing.JButton functionButton;
     private javax.swing.JTextField functionTextField;
+    private javax.swing.JMenuItem jConfigureAxisMenuItem;
     private javax.swing.JMenuItem jExportMenuItem;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JComboBox<String> jThemeComboBox;
     private javax.swing.JRadioButton normalRadioButton;
-    private javax.swing.JSpinner toSpinnerX;
-    private javax.swing.JSpinner toSpinnerY;
     private javax.swing.JRadioButton upRadioButton;
     // End of variables declaration//GEN-END:variables
 }
