@@ -5,13 +5,15 @@
         <group>
             <file>file:/C:/Users/fettm/Documents/NetBeansProjects/Graphene/src/Functions/InterperateFunction.java</file>
             <file>file:/C:/Users/fettm/Documents/NetBeansProjects/Graphene/src/Graphene/DrawPanel.java</file>
+            <file>file:/C:/Users/fettm/Documents/NetBeansProjects/Graphene/src/Graphene/ImageGenerator.java</file>
             <file>file:/C:/Users/fettm/Documents/NetBeansProjects/Graphene/src/Functions/Points.java</file>
             <file>file:/C:/Users/fettm/Documents/NetBeansProjects/Graphene/src/Axis/AxisPoints.java</file>
             <file>file:/C:/Users/fettm/Documents/NetBeansProjects/Graphene/src/Line/Lines.java</file>
-            <file>file:/C:/Users/fettm/Documents/NetBeansProjects/Graphene/src/Axis/AxisPoint.java</file>
+            <file>file:/C:/Users/fettm/Documents/NetBeansProjects/Graphene/src/Graphene/Main.java</file>
             <file>file:/C:/Users/fettm/Documents/NetBeansProjects/Graphene/src/Axis/Axis.java</file>
             <file>file:/C:/Users/fettm/Documents/NetBeansProjects/Graphene/src/Graphene/MainFrame.java</file>
             <file>file:/C:/Users/fettm/Documents/NetBeansProjects/Graphene/src/Graphene/AxisConfigFrame.java</file>
+            <file>file:/C:/Users/fettm/Documents/NetBeansProjects/Graphene/src/Line/Line.java</file>
         </group>
     </open-files>
 </project-private>

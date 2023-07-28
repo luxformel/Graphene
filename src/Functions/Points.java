@@ -6,7 +6,6 @@ package Functions;
 
 import Line.Line;
 import Line.Lines;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
@@ -16,44 +15,45 @@ import java.util.ArrayList;
  * @author luxformel
  */
 public class Points {
-    private static  ArrayList<Point> alPoints = new ArrayList<>();
+    private  ArrayList<Point> alPoints = new ArrayList<>();
+    private Lines lines = new Lines();
 
-    public static int size() {
+    public int size() {
         return alPoints.size();
     }
 
-    public static boolean isEmpty() {
+    public boolean isEmpty() {
         return alPoints.isEmpty();
     }
 
-    public static Point get(int index) {
+    public Point get(int index) {
         return alPoints.get(index);
     }
 
-    public static void add(Point e) {
+    public void add(Point e) {
          alPoints.add(e);
     }
 
-    public static void clear() {
+    public void clear() {
         alPoints.clear();
     }
     
-    public static void drawPoints(Graphics g){
+    public void drawPoints(Graphics g){
         for (int i = 1; i < alPoints.size(); i++) {     
             Point point = alPoints.get(i);
-            g.setColor(Color.red);
-           
+            //g.setColor(Color.red);   
             //g.drawOval(point.x - 7, point.y - 7, 14, 14);
         }
         addLines(g);
     }
     
-     public static void addLines(Graphics g){
+     public void addLines(Graphics g){
         for (int i = 1; i < alPoints.size(); i++) {     
             Point position1 = alPoints.get(i - 1);
             Point position2 = alPoints.get(i);
-            Lines.add(new Line(position1, position2));
+            lines.add(new Line(position1, position2));
+            System.out.println(i);
         }
-       
+       lines.draw(g);
     }
 }

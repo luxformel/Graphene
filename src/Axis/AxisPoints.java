@@ -4,7 +4,9 @@
  */
 package Axis;
 
+import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.util.ArrayList;
 
 /**
@@ -13,25 +15,31 @@ import java.util.ArrayList;
  */
 public class AxisPoints {
     
-    private ArrayList<AxisPoint> alPoints = new ArrayList<>();
+    private static ArrayList<Point> alPoints = new ArrayList<>();
 
-    public boolean isEmpty() {
+    public static boolean isEmpty() {
         return alPoints.isEmpty();
     }
 
-    public void add(AxisPoint e) {
+    public static void add(Point e) {
          alPoints.add(e);
     }
 
-    public void clear() {
+    public static void clear() {
         alPoints.clear();
     }
+
+    public int size() {
+        return alPoints.size();
+    }
     
-    public void draw(Graphics g){
-        if (!alPoints.isEmpty()) {
-            for (int i = 0; i < alPoints.size(); i++) {
-                alPoints.get(i).draw(g); 
-            }
+    
+    public static void draw(Graphics g){
+        for (int i = 0; i < alPoints.size(); i++) {
+            Point p = alPoints.get(i);
+            System.out.println("point at index " + i + " is;" + p.toString());
+            g.setColor(Color.red);
+            g.drawOval(p.x - 7, p.y - 7, 14, 14);
         }
     }
      

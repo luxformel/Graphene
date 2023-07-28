@@ -12,29 +12,29 @@ import java.util.ArrayList;
  * @author luxformel
  */
 public class Lines {
-    private static ArrayList<Line> alLines = new ArrayList<>();
+    private ArrayList<Line> alLines = new ArrayList<>();
 
-    public static boolean isEmpty() {
+    public boolean isEmpty() {
         return alLines.isEmpty();
     }
 
-    public static void add(Line e) {
+    public void add(Line e) {
         alLines.add(e);
     }
 
-    public static Line remove(int index) {
+    public Line remove(int index) {
         return alLines.remove(index);
     }
 
-    public static void clear() {
+    public void clear() {
         alLines.clear();
     }
 
-    public static int size() {
+    public int size() {
         return alLines.size();
     }
     
-    public static void draw(Graphics g){
+    public void draw(Graphics g){
         for (int i = 0; i < alLines.size(); i++) {
              alLines.get(i).draw(g);
         }

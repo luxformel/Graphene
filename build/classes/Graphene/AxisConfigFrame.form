@@ -27,10 +27,6 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
-              <Component id="jApplyAxisConfigButton" min="-2" pref="259" max="-2" attributes="0"/>
-              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-          </Group>
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
@@ -38,16 +34,19 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="startSpinnerX" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="startSpinnerY" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="startSpinnerY" alignment="0" max="32767" attributes="0"/>
+                              <Component id="startSpinnerX" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jLabel4" alignment="0" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace min="-2" pref="39" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="endSpinnerY" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                          <Component id="endSpinnerX" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="endSpinnerX" alignment="0" max="32767" attributes="0"/>
+                              <Component id="jLabel3" alignment="0" max="32767" attributes="0"/>
+                          </Group>
                       </Group>
                   </Group>
                   <Component id="jNormalRadioButton" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -55,6 +54,13 @@
                   <Component id="jDownRadioButton" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="32767" attributes="0"/>
+          </Group>
+          <Group type="102" alignment="0" attributes="0">
+              <Group type="103" groupAlignment="1" attributes="0">
+                  <Component id="endSpinnerY" alignment="1" min="-2" pref="101" max="-2" attributes="0"/>
+                  <Component id="jApplyAxisConfigButton" min="-2" pref="259" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -143,6 +149,7 @@
         <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
           <ComponentRef name="axisButtonGroup"/>
         </Property>
+        <Property name="selected" type="boolean" value="true"/>
         <Property name="text" type="java.lang.String" value="Normal"/>
       </Properties>
     </Component>

@@ -8,8 +8,7 @@ package Functions;
  *
  * @author luxformel
  */
-import Axis.Axis;
-import java.awt.Point;
+
 import java.util.Map;
 import java.util.Stack;
 import java.util.HashMap;
@@ -17,10 +16,19 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class InterperateFunction{
-
-    public static void interperate(String inputFunction, int fromX, int toX) {
+    
+    
+    
+    
+    
+    /*
+    public static Point[] interperate(String inputFunction, int fromX, int toX) {
         //String inputFunction = "3 * sin(x) + ln(2) / cos(0.5)";
+        int dimension = (Math.abs(fromX) + toX) * 10;
+        Point[] points = new Point[dimension];
+        int counter = 0;
         for (double i = fromX; i <= toX; i += 0.1) {
+            
             String instructions = parseMathOperations(inputFunction);
             //System.out.println("Instructions:");
             //System.out.println(instructions);
@@ -49,14 +57,39 @@ public class InterperateFunction{
             // checks if y was calculated sucessfully
             
             if (!Double.isNaN(y)) {
+                
                 Point point = new Point(x,(int) y);
-                Points.add(point);
+                points[counter] = point;
+                 
+                // if the point is on the grid it is added to grid Points
+                
+                if (x % distBetwLinesX == 0 || y % distBetwLinesY == 0) {
+                    AxisPoints.add(point);
+                }
+               
             }
-  
+            counter++;
         }
+        return points;
     }
+    */
     
-     public static String parseMathOperations(String input) {
+    public static double interperate(String function, double x) {
+        String inputFunction = function;
+        String instructions = parseMathOperations(inputFunction);
+        System.out.println("Instructions:");
+        System.out.println(instructions);
+
+        Map<String, Double> variables = new HashMap<>();
+        variables.put("x", x); // Substitute value for 'x'
+
+        double result = evaluateMathExpression(inputFunction, variables);
+        System.out.println("Result: " + result);
+        
+        return result;
+    }
+
+    public static String parseMathOperations(String input) {
         String[] operations = {"addition", "subtraction", "multiplication", "division", "sin", "cos", "tan", "ln", "power", "sqrt", "exp"};
         String patternString = "[-+*/(),^]|sin|cos|tan|ln|sqrt|exp";
         Pattern pattern = Pattern.compile(patternString);
@@ -112,7 +145,7 @@ public class InterperateFunction{
         return instructions.toString();
     }
 
-    private static double evaluateMathExpression(String expression, Map<String, Double> variables) {
+    public static double evaluateMathExpression(String expression, Map<String, Double> variables) {
         Stack<Double> operands = new Stack<>();
         Stack<String> operators = new Stack<>();
 

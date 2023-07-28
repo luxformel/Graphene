@@ -4,11 +4,9 @@
  */
 package Graphene;
 
-import Axis.Axis;
-import Axis.AxisPoint;
 import Axis.AxisPoints;
-import Functions.InterperateFunction;
-import Functions.Points;
+import Functions.Function;
+import Functions.Functions;
 import Line.Lines;
 import java.io.File;
 import java.util.logging.Level;
@@ -29,25 +27,29 @@ public class MainFrame extends javax.swing.JFrame {
      */
     
     private AxisPoints axisPoints;
-    private AxisPoint axisPoint;
+    private Functions functions = new Functions();
     
     public MainFrame() {
         initComponents();
         loadComboBox();
         functionTextField.setText("");
         
-        normalRadioButton.setSelected(true);
         drawPanel.setAxisPoints(axisPoints);
+        drawPanel.setFunctions(functions);
+        
+        functionsList.setListData(functions.toArray());
         
         System.out.println("width: " + drawPanel.getWidth());
         System.out.println("height: " + drawPanel.getHeight());
-        
         //drawPanel.setTypeOfAxis("NormalDown");
         repaint();
     }
     
     public void updateView(){
         drawPanel.setAxisPoints(axisPoints);
+        drawPanel.setFunctions(functions);
+        functionsList.setListData(functions.toArray());
+               
         repaint();
     }
     
@@ -77,15 +79,16 @@ public class MainFrame extends javax.swing.JFrame {
         axisButtonGroup = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         functionButton = new javax.swing.JButton();
-        downRadioButton = new javax.swing.JRadioButton();
-        upRadioButton = new javax.swing.JRadioButton();
-        normalRadioButton = new javax.swing.JRadioButton();
         functionTextField = new javax.swing.JTextField();
         clearButton = new javax.swing.JButton();
         drawPanel = new Graphene.DrawPanel();
         jLabel8 = new javax.swing.JLabel();
         jThemeComboBox = new javax.swing.JComboBox<>();
         drawPointsButton = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        functionsList = new javax.swing.JList();
+        deleteFunctionButton = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jExportMenuItem = new javax.swing.JMenuItem();
@@ -94,7 +97,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Graphlux");
+        jLabel1.setText("Graphene");
 
         functionButton.setText("Show function");
         functionButton.addActionListener(new java.awt.event.ActionListener() {
@@ -102,15 +105,6 @@ public class MainFrame extends javax.swing.JFrame {
                 functionButtonActionPerformed(evt);
             }
         });
-
-        axisButtonGroup.add(downRadioButton);
-        downRadioButton.setText("Down");
-
-        axisButtonGroup.add(upRadioButton);
-        upRadioButton.setText("Up");
-
-        axisButtonGroup.add(normalRadioButton);
-        normalRadioButton.setText("Normal");
 
         functionTextField.setText("jTextField1");
 
@@ -125,11 +119,11 @@ public class MainFrame extends javax.swing.JFrame {
         drawPanel.setLayout(drawPanelLayout);
         drawPanelLayout.setHorizontalGroup(
             drawPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1863, Short.MAX_VALUE)
+            .addGap(0, 1562, Short.MAX_VALUE)
         );
         drawPanelLayout.setVerticalGroup(
             drawPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1013, Short.MAX_VALUE)
+            .addGap(0, 838, Short.MAX_VALUE)
         );
 
         jLabel8.setText("Select LookAndFeel:");
@@ -147,6 +141,22 @@ public class MainFrame extends javax.swing.JFrame {
                 drawPointsButtonActionPerformed(evt);
             }
         });
+
+        functionsList.setModel(new javax.swing.AbstractListModel() {
+            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+            public int getSize() { return strings.length; }
+            public Object getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane1.setViewportView(functionsList);
+
+        deleteFunctionButton.setText("Delete function");
+        deleteFunctionButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteFunctionButtonActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Enter Your function:");
 
         jMenu1.setText("File");
 
@@ -180,51 +190,44 @@ public class MainFrame extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jThemeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addComponent(jThemeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(functionButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(functionTextField, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jScrollPane1)
+                                    .addComponent(deleteFunctionButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(96, 96, 96)
-                                        .addComponent(jLabel1))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(downRadioButton)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(normalRadioButton)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(upRadioButton))
-                                    .addComponent(clearButton)
-                                    .addComponent(jLabel8))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(functionButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(functionTextField, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(clearButton)
+                                            .addComponent(jLabel8)
+                                            .addComponent(drawPointsButton)
+                                            .addComponent(jLabel2))
+                                        .addGap(0, 0, Short.MAX_VALUE)))
+                                .addGap(18, 18, 18))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(drawPointsButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jLabel1)
+                        .addGap(157, 157, 157)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(drawPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(drawPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(downRadioButton)
-                            .addComponent(normalRadioButton)
-                            .addComponent(upRadioButton))
-                        .addGap(239, 239, 239)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(functionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(functionButton)
@@ -235,7 +238,13 @@ public class MainFrame extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jThemeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(45, 45, 45)
-                        .addComponent(drawPointsButton))))
+                        .addComponent(drawPointsButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane1)
+                        .addGap(12, 12, 12)
+                        .addComponent(deleteFunctionButton))
+                    .addComponent(drawPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         pack();
@@ -244,18 +253,14 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void functionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_functionButtonActionPerformed
         // TODO add your handling code here:
-        Lines.clear();
-        Points.clear();
+        AxisPoints.clear();
         String function = functionTextField.getText();
-        
-        int startX = Axis.getStartX();
-        int endX = Axis.getEndX();
-        
-        InterperateFunction.interperate(function, startX, endX);  
+        if (!function.equals("")) {
+            functions.add(new Function(function));        
+        }
         drawPanel.setDrawLines(true);
         updateView();
        // System.out.println("number of points: " + Points.size());
-        
     }//GEN-LAST:event_functionButtonActionPerformed
 
     private void jExportMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jExportMenuItemActionPerformed
@@ -282,8 +287,7 @@ public class MainFrame extends javax.swing.JFrame {
 
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
         // TODO add your handling code here:
-        Lines.clear();
-        Points.clear();
+        AxisPoints.clear();
         updateView();   
     }//GEN-LAST:event_clearButtonActionPerformed
 
@@ -316,33 +320,43 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         AxisConfigFrame axisConfigFrame = new AxisConfigFrame();
         axisConfigFrame.show();
+        updateView();
     }//GEN-LAST:event_jConfigureAxisMenuItemActionPerformed
 
     private void drawPointsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drawPointsButtonActionPerformed
         // TODO add your handling code here:
         drawPanel.setDrawLines(true);
-        System.out.println("number of points in list: " + Points.size());
         updateView();
     }//GEN-LAST:event_drawPointsButtonActionPerformed
+
+    private void deleteFunctionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteFunctionButtonActionPerformed
+        // TODO add your handling code here:
+        int index = functionsList.getSelectedIndex();
+        if (index != -1) {
+            functions.remove(index);
+        }
+        updateView();
+    }//GEN-LAST:event_deleteFunctionButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup axisButtonGroup;
     private javax.swing.JButton clearButton;
-    private javax.swing.JRadioButton downRadioButton;
+    private javax.swing.JButton deleteFunctionButton;
     protected Graphene.DrawPanel drawPanel;
     private javax.swing.JButton drawPointsButton;
     private javax.swing.JButton functionButton;
     private javax.swing.JTextField functionTextField;
+    private javax.swing.JList functionsList;
     private javax.swing.JMenuItem jConfigureAxisMenuItem;
     private javax.swing.JMenuItem jExportMenuItem;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> jThemeComboBox;
-    private javax.swing.JRadioButton normalRadioButton;
-    private javax.swing.JRadioButton upRadioButton;
     // End of variables declaration//GEN-END:variables
 }

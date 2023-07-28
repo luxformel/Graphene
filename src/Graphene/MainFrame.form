@@ -66,43 +66,40 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <Component id="jThemeComboBox" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="2087" max="32767" attributes="0"/>
-          </Group>
-          <Group type="102" alignment="0" attributes="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
-                                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="downRadioButton" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="normalRadioButton" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                                      <Component id="upRadioButton" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Component id="clearButton" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <Component id="jThemeComboBox" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
                           </Group>
-                          <Component id="functionButton" alignment="0" max="32767" attributes="0"/>
-                          <Component id="functionTextField" alignment="1" max="32767" attributes="0"/>
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" attributes="0">
+                                  <Component id="functionButton" alignment="0" max="32767" attributes="0"/>
+                                  <Component id="functionTextField" alignment="1" max="32767" attributes="0"/>
+                                  <Component id="jScrollPane1" max="32767" attributes="0"/>
+                                  <Component id="deleteFunctionButton" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="clearButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="drawPointsButton" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                  </Group>
+                              </Group>
+                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                      <Component id="drawPointsButton" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="157" max="-2" attributes="0"/>
                   </Group>
               </Group>
+              <EmptySpace max="32767" attributes="0"/>
               <Component id="drawPanel" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
           </Group>
@@ -110,19 +107,14 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" alignment="1" attributes="0">
               <EmptySpace max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="drawPanel" min="-2" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="downRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="normalRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="upRadioButton" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="239" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
                       <Component id="functionTextField" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="functionButton" min="-2" max="-2" attributes="0"/>
@@ -134,8 +126,14 @@
                       <Component id="jThemeComboBox" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
                       <Component id="drawPointsButton" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" max="32767" attributes="0"/>
+                      <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                      <Component id="deleteFunctionButton" min="-2" max="-2" attributes="0"/>
                   </Group>
+                  <Component id="drawPanel" min="-2" max="-2" attributes="0"/>
               </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -143,7 +141,7 @@
   <SubComponents>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Graphlux"/>
+        <Property name="text" type="java.lang.String" value="Graphene"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JButton" name="functionButton">
@@ -153,30 +151,6 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="functionButtonActionPerformed"/>
       </Events>
-    </Component>
-    <Component class="javax.swing.JRadioButton" name="downRadioButton">
-      <Properties>
-        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-          <ComponentRef name="axisButtonGroup"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Down"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JRadioButton" name="upRadioButton">
-      <Properties>
-        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-          <ComponentRef name="axisButtonGroup"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Up"/>
-      </Properties>
-    </Component>
-    <Component class="javax.swing.JRadioButton" name="normalRadioButton">
-      <Properties>
-        <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-          <ComponentRef name="axisButtonGroup"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Normal"/>
-      </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="functionTextField">
       <Properties>
@@ -199,12 +173,12 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="1863" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="1562" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <EmptySpace min="0" pref="1013" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="838" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
@@ -239,6 +213,44 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="drawPointsButtonActionPerformed"/>
       </Events>
+    </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+      <AuxValues>
+        <AuxValue name="autoScrollPane" type="java.lang.Boolean" value="true"/>
+      </AuxValues>
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Component class="javax.swing.JList" name="functionsList">
+          <Properties>
+            <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
+              <StringArray count="5">
+                <StringItem index="0" value="Item 1"/>
+                <StringItem index="1" value="Item 2"/>
+                <StringItem index="2" value="Item 3"/>
+                <StringItem index="3" value="Item 4"/>
+                <StringItem index="4" value="Item 5"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value=""/>
+          </AuxValues>
+        </Component>
+      </SubComponents>
+    </Container>
+    <Component class="javax.swing.JButton" name="deleteFunctionButton">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Delete function"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteFunctionButtonActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel2">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Enter Your function:"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
