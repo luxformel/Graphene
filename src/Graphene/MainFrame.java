@@ -35,13 +35,15 @@ public class MainFrame extends javax.swing.JFrame {
         initComponents();
         loadComboBox();
         functionTextField.setText("");
-        drawPanel.setTypeOfAxis("Down");
+        
         normalRadioButton.setSelected(true);
         drawPanel.setAxisPoints(axisPoints);
         
         System.out.println("width: " + drawPanel.getWidth());
         System.out.println("height: " + drawPanel.getHeight());
-        updateView();
+        
+        //drawPanel.setTypeOfAxis("NormalDown");
+        repaint();
     }
     
     public void updateView(){
@@ -49,9 +51,6 @@ public class MainFrame extends javax.swing.JFrame {
         repaint();
     }
     
-    public void defaultAxisAtStart(){
-        //drawPanel.set
-    }
     
     public void loadComboBox(){
         UIManager.LookAndFeelInfo[] lafInfo = UIManager.getInstalledLookAndFeels();
@@ -86,6 +85,7 @@ public class MainFrame extends javax.swing.JFrame {
         drawPanel = new Graphene.DrawPanel();
         jLabel8 = new javax.swing.JLabel();
         jThemeComboBox = new javax.swing.JComboBox<>();
+        drawPointsButton = new javax.swing.JButton();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jExportMenuItem = new javax.swing.JMenuItem();
@@ -141,6 +141,13 @@ public class MainFrame extends javax.swing.JFrame {
             }
         });
 
+        drawPointsButton.setText("Draw Points");
+        drawPointsButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                drawPointsButtonActionPerformed(evt);
+            }
+        });
+
         jMenu1.setText("File");
 
         jExportMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -176,27 +183,31 @@ public class MainFrame extends javax.swing.JFrame {
                 .addComponent(jThemeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(96, 96, 96)
-                                .addComponent(jLabel1))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(downRadioButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(normalRadioButton)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(upRadioButton))
-                            .addComponent(clearButton)
-                            .addComponent(jLabel8))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(96, 96, 96)
+                                        .addComponent(jLabel1))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(downRadioButton)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(normalRadioButton)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(upRadioButton))
+                                    .addComponent(clearButton)
+                                    .addComponent(jLabel8))
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addComponent(functionButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(functionTextField, javax.swing.GroupLayout.Alignment.TRAILING))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(drawPointsButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(drawPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -222,7 +233,9 @@ public class MainFrame extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jThemeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jThemeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(45, 45, 45)
+                        .addComponent(drawPointsButton))))
         );
 
         pack();
@@ -233,7 +246,6 @@ public class MainFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
         Lines.clear();
         Points.clear();
-        System.out.println("Hello World!");
         String function = functionTextField.getText();
         
         int startX = Axis.getStartX();
@@ -242,7 +254,7 @@ public class MainFrame extends javax.swing.JFrame {
         InterperateFunction.interperate(function, startX, endX);  
         drawPanel.setDrawLines(true);
         updateView();
-        System.out.println("number of points: " + Points.size());
+       // System.out.println("number of points: " + Points.size());
         
     }//GEN-LAST:event_functionButtonActionPerformed
 
@@ -306,12 +318,20 @@ public class MainFrame extends javax.swing.JFrame {
         axisConfigFrame.show();
     }//GEN-LAST:event_jConfigureAxisMenuItemActionPerformed
 
+    private void drawPointsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drawPointsButtonActionPerformed
+        // TODO add your handling code here:
+        drawPanel.setDrawLines(true);
+        System.out.println("number of points in list: " + Points.size());
+        updateView();
+    }//GEN-LAST:event_drawPointsButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup axisButtonGroup;
     private javax.swing.JButton clearButton;
     private javax.swing.JRadioButton downRadioButton;
-    private Graphene.DrawPanel drawPanel;
+    protected Graphene.DrawPanel drawPanel;
+    private javax.swing.JButton drawPointsButton;
     private javax.swing.JButton functionButton;
     private javax.swing.JTextField functionTextField;
     private javax.swing.JMenuItem jConfigureAxisMenuItem;

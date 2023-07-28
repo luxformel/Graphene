@@ -7,6 +7,7 @@ package Graphene;
 import Axis.Axis;
 import Axis.AxisPoints;
 import Functions.Points;
+import Line.Lines;
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -19,15 +20,14 @@ public class DrawPanel extends javax.swing.JPanel {
     private AxisPoints axisPoints;
     private Points points;
     private String typeOfAxis = "Normal";
-    private boolean drawLines = true;
+    private boolean drawLines = false;
 
     
     /**
      * Creates new form DrawPanel
      */
     public DrawPanel() {
-        initComponents();  
-        
+        initComponents();    
     }
 
     //setters
@@ -60,8 +60,9 @@ public class DrawPanel extends javax.swing.JPanel {
        if (axisPoints != null) {
             axisPoints.draw(g);
         }
-       
+       System.out.println("was called");
         switch (typeOfAxis) {
+            
             case "Down":
                     Axis.drawBackgroundLines(getWidth(), getHeight(), g);
                     Axis.drawAxisDown(getWidth(), getHeight(), g);
@@ -73,12 +74,16 @@ public class DrawPanel extends javax.swing.JPanel {
             case "Normal":
                     Axis.drawBackgroundLines(getWidth(), getHeight(), g);
                     Axis.drawAxis(getWidth(), getHeight(), g);  
-                break;
+                break;    
             default:
                 throw new AssertionError();
         }
         if (drawLines) {
-            Points.drawLines(g);
+            Points.drawPoints(g);
+            
+        }
+        if (!Lines.isEmpty()) {
+            Lines.draw(g);
         }
     }
 

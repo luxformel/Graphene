@@ -15,9 +15,9 @@ import java.awt.Graphics2D;
  */
 public class Axis {
     
-    private static int numberOfDivisingLinesX = 1;
-    private static int numberOfDivisingLinesY = 1;
-    private static int startX = -9, startY = -3, endX = 9, endY = 3;
+    private static int numberOfDivisingLinesX = 18;
+    private static int numberOfDivisingLinesY = 22;
+    private static int startX = -9, startY = -6, endX = 9, endY = 16;
     private static int distanceBetweenLinesX, distanceBetweenLinesY;
     private static String typOfAxis = "Normal";
     
@@ -67,7 +67,6 @@ public class Axis {
     }
 
     public static int getDistanceBetweenLinesX() {
-        System.out.println("distance between x lines " + distanceBetweenLinesX);
         return distanceBetweenLinesX;
     }
 
@@ -138,6 +137,41 @@ public class Axis {
             int[] yPointsY = {0, 10, 10};
             g2D.fillPolygon(xPointsY, yPointsY, 3);
         }
+       
+       public static void drawAxisNormalDown(int width, int height, Graphics g){
+           
+            Graphics2D g2D = (Graphics2D) g;
+
+            g2D.setStroke(new BasicStroke(3));
+            g2D.setColor(Color.BLACK);
+
+            //draws the x axis
+            g2D.setColor(new Color(100,100,100));
+            
+            Axis.setDistanceBetweenLinesY((int)height / Axis.numberOfDivisingLinesY);
+            
+            int heightXAxis = Math.abs(endY) * distanceBetweenLinesY;
+            
+            g2D.drawLine(0, heightXAxis, width - 5, heightXAxis);
+            // arrow x 
+            int[] xPointsX = {width, width - 10, width - 10};
+            int[] yPointsX = {heightXAxis, heightXAxis - 5, heightXAxis + 5};
+            g2D.fillPolygon(xPointsX, yPointsX, 3);
+            
+            
+            //draws the y axis
+            
+            Axis.setDistanceBetweenLinesX((int)width / Axis.numberOfDivisingLinesX);
+            
+            int heightYAxis = Math.abs(startX) * distanceBetweenLinesX;
+            
+            g2D.drawLine(heightYAxis, 0, heightYAxis, height - 5);
+            // arrow y 
+            int[] xPointsY = {heightYAxis, heightYAxis - 5, heightYAxis + 5};
+            int[] yPointsY = {height, height - 10, height - 10};
+            g2D.fillPolygon(xPointsY, yPointsY, 3);
+        }
+       
        public static void drawAxisDown(int width, int height, Graphics g){
            
             Graphics2D g2D = (Graphics2D) g;
@@ -194,6 +228,6 @@ public class Axis {
             for (int i = 0; i < numberOfDivisingLinesY; i++) {
                 g2D.drawLine(0, height/numberOfDivisingLinesY * i, width, height/numberOfDivisingLinesY * i);  
             }
-        
+          
         }
 }

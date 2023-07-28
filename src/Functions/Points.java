@@ -4,6 +4,8 @@
  */
 package Functions;
 
+import Line.Line;
+import Line.Lines;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -36,19 +38,22 @@ public class Points {
         alPoints.clear();
     }
     
-    public static void drawLines(Graphics g){
+    public static void drawPoints(Graphics g){
         for (int i = 1; i < alPoints.size(); i++) {     
-            /*
+            Point point = alPoints.get(i);
+            g.setColor(Color.red);
+           
+            //g.drawOval(point.x - 7, point.y - 7, 14, 14);
+        }
+        addLines(g);
+    }
+    
+     public static void addLines(Graphics g){
+        for (int i = 1; i < alPoints.size(); i++) {     
             Point position1 = alPoints.get(i - 1);
             Point position2 = alPoints.get(i);
             Lines.add(new Line(position1, position2));
-            */
-            Point point = alPoints.get(i);
-            g.setColor(Color.red);
-            g.fillOval(point.x - 7, point.x - 7, 15, 15);
         }
        
     }
-    
-    
 }

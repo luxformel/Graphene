@@ -42,20 +42,20 @@ public class TranslateCoordinates {
             System.out.println("first quadrant");
         } else if (pointx <= 0 && pointy >= 0) {
             // second quadrant
-            X = (startX - pointx) * distBetwLinesX;
-            Y = (endY - pointy) * distBetwLinesY;
+            X = (startX + pointx) * distBetwLinesX;
+            Y =  (endY - pointy) * distBetwLinesY;
             System.out.println("second quadrant");
         }
         else if (pointx <= 0 && pointy <= 0) {
             // third quadrant
-            X = (startX - pointx) * distBetwLinesX;
-            Y = (endY + pointy) * distBetwLinesY;
+            X = (startX + pointx) * distBetwLinesX;
+            Y = (endY - pointy) * distBetwLinesY;
             System.out.println("third quadrant");
         }
         else if (pointx >= 0 && pointy <= 0) {
             // fourth quadrant
             X = (pointx + startX) * distBetwLinesX;
-            Y = (endY + pointy) * distBetwLinesY;
+            Y = (endY - pointy) * distBetwLinesY;
             System.out.println("fourth quadrant");
         }
         System.out.println("X: " + X  + "; Y: " + Y);
