@@ -8,7 +8,6 @@ import Axis.Axis;
 import Axis.AxisPoints;
 import Functions.Functions;
 import Functions.Points;
-import Line.Lines;
 import java.awt.Color;
 import java.awt.Graphics;
 
@@ -23,6 +22,7 @@ public class DrawPanel extends javax.swing.JPanel {
     private String typeOfAxis = "Normal";
     private boolean drawLines = false;
     private Functions functions;
+    private Color color;
     
     /**
      * Creates new form DrawPanel
@@ -65,7 +65,7 @@ public class DrawPanel extends javax.swing.JPanel {
        if (axisPoints != null) {
             axisPoints.draw(g);
         }
-       System.out.println("was called");
+       
         switch (typeOfAxis) {
             
             case "Down":
@@ -86,11 +86,9 @@ public class DrawPanel extends javax.swing.JPanel {
        
         if (!AxisPoints.isEmpty()) {
             AxisPoints.draw(g);
-            System.out.println("drew points");
         }
         if (functions != null) {
-            System.out.println("functions in drawPanel was called");
-            functions.draw(g);
+            functions.draw(g, color);
         }
     }
 
@@ -118,4 +116,4 @@ public class DrawPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
-}
+}

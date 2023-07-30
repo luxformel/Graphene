@@ -6,6 +6,7 @@ package Graphene;
 
 import Axis.Axis;
 
+
 /**
  *
  * @author luxformel
@@ -17,6 +18,7 @@ public class AxisConfigFrame extends javax.swing.JFrame {
      */
     public AxisConfigFrame() {
         initComponents();
+        numbersCheckBox.setSelected(Axis.getDisplayNumbers());
     }
 
     /**
@@ -29,6 +31,7 @@ public class AxisConfigFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         axisButtonGroup = new javax.swing.ButtonGroup();
+        jDialog1 = new javax.swing.JDialog();
         jLabel1 = new javax.swing.JLabel();
         startSpinnerX = new javax.swing.JSpinner();
         jLabel2 = new javax.swing.JLabel();
@@ -42,6 +45,18 @@ public class AxisConfigFrame extends javax.swing.JFrame {
         jNormalRadioButton = new javax.swing.JRadioButton();
         jUpRadioButton = new javax.swing.JRadioButton();
         jDownRadioButton = new javax.swing.JRadioButton();
+        numbersCheckBox = new javax.swing.JCheckBox();
+
+        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
+        jDialog1.getContentPane().setLayout(jDialog1Layout);
+        jDialog1Layout.setHorizontalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jDialog1Layout.setVerticalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -72,6 +87,14 @@ public class AxisConfigFrame extends javax.swing.JFrame {
         axisButtonGroup.add(jDownRadioButton);
         jDownRadioButton.setText("Down");
 
+        numbersCheckBox.setSelected(true);
+        numbersCheckBox.setText("Display Numbers");
+        numbersCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                numbersCheckBoxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -93,14 +116,17 @@ public class AxisConfigFrame extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(endSpinnerX, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addComponent(jNormalRadioButton)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jNormalRadioButton)
+                        .addGap(28, 28, 28)
+                        .addComponent(numbersCheckBox, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jUpRadioButton)
                     .addComponent(jDownRadioButton))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(endSpinnerY, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jApplyAxisConfigButton, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jApplyAxisConfigButton, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(endSpinnerY, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -125,41 +151,85 @@ public class AxisConfigFrame extends javax.swing.JFrame {
                     .addComponent(startSpinnerY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(endSpinnerY, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jNormalRadioButton)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jNormalRadioButton)
+                    .addComponent(numbersCheckBox))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jUpRadioButton)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jDownRadioButton)
-                .addGap(7, 7, 7)
+                .addGap(18, 18, 18)
                 .addComponent(jApplyAxisConfigButton)
-                .addContainerGap(129, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    private ApplyListener applyListener;
+
+    public void setApplyListener(ApplyListener listener) {
+        this.applyListener = listener;
+    }
+    
+    
     private void jApplyAxisConfigButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jApplyAxisConfigButtonActionPerformed
         // TODO add your handling code here:
-        // sets X
-        Axis.setStartX((int)startSpinnerX.getValue());
-        Axis.setEndX((int)endSpinnerX.getValue());
-        Axis.calculateXDistance();
         
-        // sets Y 
-        Axis.setStartY((int)startSpinnerY.getValue());
-        Axis.setEndY((int)endSpinnerY.getValue());
-        Axis.calculateYDistance();
+        //gets X 
         
-        // draws the appropriate Axis
-        if (jDownRadioButton.isSelected()) {
-            Axis.setTypOfAxis("Down");
-        }else if (jUpRadioButton.isSelected()) {
-            Axis.setTypOfAxis("Up");
-        }else if (jNormalRadioButton.isSelected()) {
-            Axis.setTypOfAxis("Normal");
+        int startX = (int) startSpinnerX.getValue();
+        int endX = (int)endSpinnerX.getValue();
+        
+        //gets Y
+        
+        int startY = (int) startSpinnerY.getValue();
+        int endY = (int)endSpinnerY.getValue();
+        
+        
+        // sets if numbers are displayed or not
+        
+        boolean displayNumbers = numbersCheckBox.isSelected();
+        Axis.setDisplayNumbers(displayNumbers);
+        
+        if (startX != 0 && endX != 0 && startY != 0 && endY != 0) {
+            // sets X
+            Axis.setStartX(startX);
+            Axis.setEndX(endX);
+            Axis.calculateXDistance();
+
+            // sets Y 
+            Axis.setStartY(startY);
+            Axis.setEndY(endY);
+            Axis.calculateYDistance();
+            
+            
+
+        
+            // draws the appropriate Axis
+            if (jDownRadioButton.isSelected()) {
+                Axis.setTypOfAxis("Down");
+            }else if (jUpRadioButton.isSelected()) {
+                Axis.setTypOfAxis("Up");
+            }else if (jNormalRadioButton.isSelected()) {
+                Axis.setTypOfAxis("Normal");
+            }
+            
+            
+            
         }
-        //drawPanel.repaint();
+        if (applyListener != null) {
+                ApplyEvent event = new ApplyEvent(this);
+                applyListener.applyButtonClicked(event);
+            }
+        this.dispose(); // Close the ApplyFrame after applying changes
     }//GEN-LAST:event_jApplyAxisConfigButtonActionPerformed
+
+    private void numbersCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_numbersCheckBoxActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_numbersCheckBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -171,6 +241,7 @@ public class AxisConfigFrame extends javax.swing.JFrame {
     private javax.swing.JSpinner endSpinnerX;
     private javax.swing.JSpinner endSpinnerY;
     private javax.swing.JButton jApplyAxisConfigButton;
+    private javax.swing.JDialog jDialog1;
     private javax.swing.JRadioButton jDownRadioButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -179,6 +250,7 @@ public class AxisConfigFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JRadioButton jNormalRadioButton;
     private javax.swing.JRadioButton jUpRadioButton;
+    private javax.swing.JCheckBox numbersCheckBox;
     private javax.swing.JSpinner startSpinnerX;
     private javax.swing.JSpinner startSpinnerY;
     // End of variables declaration//GEN-END:variables

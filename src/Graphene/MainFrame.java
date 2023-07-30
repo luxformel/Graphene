@@ -7,10 +7,11 @@ package Graphene;
 import Axis.AxisPoints;
 import Functions.Function;
 import Functions.Functions;
-import Line.Lines;
+import java.awt.Color;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JColorChooser;
 import javax.swing.JFileChooser;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
@@ -20,13 +21,14 @@ import javax.swing.UnsupportedLookAndFeelException;
  *
  * @author luxformel
  */
-public class MainFrame extends javax.swing.JFrame {
+public class MainFrame extends javax.swing.JFrame implements ApplyListener{
 
     /**
      * Creates new form MainFrame
      */
     
     private AxisPoints axisPoints;
+    private Color color = Color.BLACK;
     private Functions functions = new Functions();
     
     public MainFrame() {
@@ -42,6 +44,9 @@ public class MainFrame extends javax.swing.JFrame {
         System.out.println("width: " + drawPanel.getWidth());
         System.out.println("height: " + drawPanel.getHeight());
         //drawPanel.setTypeOfAxis("NormalDown");
+        
+        jColorPanel.setBackground(color);
+        
         repaint();
     }
     
@@ -49,8 +54,19 @@ public class MainFrame extends javax.swing.JFrame {
         drawPanel.setAxisPoints(axisPoints);
         drawPanel.setFunctions(functions);
         functionsList.setListData(functions.toArray());
-               
+               System.out.println("UpdateView was called");
+        drawPanel.setDrawLines(true);  
+        jColorPanel.setBackground(color);
         repaint();
+    }
+    
+    
+    public void applyButtonClicked(ApplyEvent event) {
+        // Update your MainFrame here
+        // You can access methods and variables of the MainFrame to update it accordingly
+        // For example, if you want to update a label:
+        // myLabel.setText("Changes applied!");
+        updateView();
     }
     
     
@@ -89,6 +105,9 @@ public class MainFrame extends javax.swing.JFrame {
         functionsList = new javax.swing.JList();
         deleteFunctionButton = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        selectColorButton = new javax.swing.JButton();
+        jColorPanel = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         jExportMenuItem = new javax.swing.JMenuItem();
@@ -108,7 +127,7 @@ public class MainFrame extends javax.swing.JFrame {
 
         functionTextField.setText("jTextField1");
 
-        clearButton.setText("Clear");
+        clearButton.setText("Clear All");
         clearButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 clearButtonActionPerformed(evt);
@@ -158,6 +177,26 @@ public class MainFrame extends javax.swing.JFrame {
 
         jLabel2.setText("Enter Your function:");
 
+        selectColorButton.setText("Select color");
+        selectColorButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                selectColorButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jColorPanelLayout = new javax.swing.GroupLayout(jColorPanel);
+        jColorPanel.setLayout(jColorPanelLayout);
+        jColorPanelLayout.setHorizontalGroup(
+            jColorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jColorPanelLayout.setVerticalGroup(
+            jColorPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 26, Short.MAX_VALUE)
+        );
+
+        jLabel3.setText("Selected Color:");
+
         jMenu1.setText("File");
 
         jExportMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -192,29 +231,32 @@ public class MainFrame extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jThemeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(jLabel1)
+                                .addGap(0, 0, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(functionButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(functionTextField, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jScrollPane1)
                                     .addComponent(deleteFunctionButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jThemeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(drawPointsButton)
+                                    .addComponent(clearButton, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(clearButton)
-                                            .addComponent(jLabel8)
-                                            .addComponent(drawPointsButton)
-                                            .addComponent(jLabel2))
-                                        .addGap(0, 0, Short.MAX_VALUE)))
-                                .addGap(18, 18, 18))))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(jColorPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING))
+                                        .addGap(18, 18, 18)
+                                        .addComponent(selectColorButton)))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addGap(157, 157, 157)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addContainerGap()
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addComponent(drawPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -231,20 +273,28 @@ public class MainFrame extends javax.swing.JFrame {
                         .addComponent(functionTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(functionButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(clearButton)
                         .addGap(18, 18, 18)
+                        .addComponent(jLabel3)
+                        .addGap(4, 4, 4)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jColorPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(selectColorButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jLabel8)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jThemeComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(45, 45, 45)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(drawPointsButton)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1)
-                        .addGap(12, 12, 12)
-                        .addComponent(deleteFunctionButton))
-                    .addComponent(drawPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(deleteFunctionButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(clearButton)
+                        .addGap(13, 13, 13))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(drawPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
 
         pack();
@@ -256,7 +306,7 @@ public class MainFrame extends javax.swing.JFrame {
         AxisPoints.clear();
         String function = functionTextField.getText();
         if (!function.equals("")) {
-            functions.add(new Function(function));        
+            functions.add(new Function(function, color));        
         }
         drawPanel.setDrawLines(true);
         updateView();
@@ -288,6 +338,7 @@ public class MainFrame extends javax.swing.JFrame {
     private void clearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_clearButtonActionPerformed
         // TODO add your handling code here:
         AxisPoints.clear();
+        functions.clear();
         updateView();   
     }//GEN-LAST:event_clearButtonActionPerformed
 
@@ -319,13 +370,16 @@ public class MainFrame extends javax.swing.JFrame {
     private void jConfigureAxisMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jConfigureAxisMenuItemActionPerformed
         // TODO add your handling code here:
         AxisConfigFrame axisConfigFrame = new AxisConfigFrame();
+        axisConfigFrame.setApplyListener(this); // 'this' refers to the MainFrame because it implements ApplyListener
+        axisConfigFrame.setVisible(true);
+        
         axisConfigFrame.show();
-        updateView();
     }//GEN-LAST:event_jConfigureAxisMenuItemActionPerformed
 
     private void drawPointsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_drawPointsButtonActionPerformed
         // TODO add your handling code here:
         drawPanel.setDrawLines(true);
+        //functions.draw();
         updateView();
     }//GEN-LAST:event_drawPointsButtonActionPerformed
 
@@ -338,6 +392,14 @@ public class MainFrame extends javax.swing.JFrame {
         updateView();
     }//GEN-LAST:event_deleteFunctionButtonActionPerformed
 
+    private void selectColorButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_selectColorButtonActionPerformed
+        // TODO add your handling code here:
+        JColorChooser jColorChooser = new JColorChooser();
+        color = JColorChooser.showDialog(null, "Select the color of your function", Color.BLACK);
+        jColorPanel.setBackground(color);
+        //System.out.println("Color: " + color);
+    }//GEN-LAST:event_selectColorButtonActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup axisButtonGroup;
@@ -348,15 +410,18 @@ public class MainFrame extends javax.swing.JFrame {
     private javax.swing.JButton functionButton;
     private javax.swing.JTextField functionTextField;
     private javax.swing.JList functionsList;
+    private javax.swing.JPanel jColorPanel;
     private javax.swing.JMenuItem jConfigureAxisMenuItem;
     private javax.swing.JMenuItem jExportMenuItem;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JComboBox<String> jThemeComboBox;
+    private javax.swing.JButton selectColorButton;
     // End of variables declaration//GEN-END:variables
-}
+}

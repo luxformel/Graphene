@@ -4,6 +4,7 @@
  */
 package Functions;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
@@ -42,10 +43,10 @@ public class Functions {
         return alFunctions.isEmpty();
     }
     
-    public void draw(Graphics g){
+    public void draw(Graphics g, Color color){
         for (int i = 0; i < alFunctions.size(); i++) {
-            alFunctions.get(i).draw(g);
+            alFunctions.get(i).draw(g, color);
         }    
     }
     
-}
+}

@@ -6,6 +6,7 @@ package Functions;
 
 import Line.Line;
 import Line.Lines;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 public class Points {
     private  ArrayList<Point> alPoints = new ArrayList<>();
     private Lines lines = new Lines();
+    private Color color;
 
     public int size() {
         return alPoints.size();
@@ -29,6 +31,10 @@ public class Points {
     public Point get(int index) {
         return alPoints.get(index);
     }
+    
+    public void setColor(Color color){
+        this.color = color;
+    }
 
     public void add(Point e) {
          alPoints.add(e);
@@ -36,9 +42,10 @@ public class Points {
 
     public void clear() {
         alPoints.clear();
+        lines.clear();
     }
     
-    public void drawPoints(Graphics g){
+    public void drawPoints(Graphics g, Color color){
         for (int i = 1; i < alPoints.size(); i++) {     
             Point point = alPoints.get(i);
             //g.setColor(Color.red);   
@@ -51,9 +58,9 @@ public class Points {
         for (int i = 1; i < alPoints.size(); i++) {     
             Point position1 = alPoints.get(i - 1);
             Point position2 = alPoints.get(i);
-            lines.add(new Line(position1, position2));
-            System.out.println(i);
+            lines.add(new Line(position1, position2, color));
         }
-       lines.draw(g);
+        //lines.set
+       lines.draw(g, color);
     }
-}
+}

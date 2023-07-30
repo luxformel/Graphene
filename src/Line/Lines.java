@@ -4,6 +4,7 @@
  */
 package Line;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
@@ -13,10 +14,13 @@ import java.util.ArrayList;
  */
 public class Lines {
     private ArrayList<Line> alLines = new ArrayList<>();
+    private Color color;
 
     public boolean isEmpty() {
         return alLines.isEmpty();
     }
+    
+    
 
     public void add(Line e) {
         alLines.add(e);
@@ -34,9 +38,9 @@ public class Lines {
         return alLines.size();
     }
     
-    public void draw(Graphics g){
+    public void draw(Graphics g, Color color){
         for (int i = 0; i < alLines.size(); i++) {
              alLines.get(i).draw(g);
         }
     }
-}
+}

@@ -16,10 +16,12 @@ import java.awt.Point;
  */
 public class Line {
     private Point position1, position2;
+    private Color color;
 
-    public Line(Point position1, Point position2) {
+    public Line(Point position1, Point position2, Color color) {
         this.position1 = position1;
         this.position2 = position2;
+        this.color = color;
     }
 
     public void setPosition1(Point position1) {
@@ -33,9 +35,13 @@ public class Line {
     public void draw(Graphics g){
         Graphics2D g2D = (Graphics2D) g;
         g2D.setStroke(new BasicStroke(3));
-        g2D.setColor(Color.BLACK);
+        g2D.setColor(color);
         // Antialiasing
         //g2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2D.drawLine(position1.x, position1.y, position2.x, position2.y);
+        int relativeX = Math.abs(position1.x - position2.x);
+        int relativeY = Math.abs(position1.y - position2.y);
+        if (relativeX <= 1000 && relativeY <= 1000) {
+            g2D.drawLine(position1.x, position1.y, position2.x, position2.y);
+        }
     }
-}   
+}   

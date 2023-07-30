@@ -77,14 +77,14 @@ public class InterperateFunction{
     public static double interperate(String function, double x) {
         String inputFunction = function;
         String instructions = parseMathOperations(inputFunction);
-        System.out.println("Instructions:");
-        System.out.println(instructions);
+        //System.out.println("Instructions:");
+        //System.out.println(instructions);
 
         Map<String, Double> variables = new HashMap<>();
         variables.put("x", x); // Substitute value for 'x'
 
         double result = evaluateMathExpression(inputFunction, variables);
-        System.out.println("Result: " + result);
+        //System.out.println("Result: " + result);
         
         return result;
     }
@@ -279,4 +279,4 @@ public class InterperateFunction{
     private static boolean isFunction(String name) {
         return name.equals("sin") || name.equals("cos") || name.equals("tan") || name.equals("ln") || name.equals("sqrt") || name.equals("exp");
     }
-}
+}

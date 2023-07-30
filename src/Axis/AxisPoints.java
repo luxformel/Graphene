@@ -37,10 +37,10 @@ public class AxisPoints {
     public static void draw(Graphics g){
         for (int i = 0; i < alPoints.size(); i++) {
             Point p = alPoints.get(i);
-            System.out.println("point at index " + i + " is;" + p.toString());
+           // System.out.println("point at index " + i + " is;" + p.toString());
             g.setColor(Color.red);
             g.drawOval(p.x - 7, p.y - 7, 14, 14);
         }
     }
      
-}
+}

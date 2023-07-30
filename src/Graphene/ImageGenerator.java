@@ -39,4 +39,4 @@ public class ImageGenerator {
         } catch (IOException e) {
         }
     }
-}
+}

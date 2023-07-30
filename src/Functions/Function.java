@@ -22,10 +22,10 @@ public class Function {
     public String getFunc() {
         return func;
     }
-
-
-    public Function(String func){
+    
+    public Function(String func, Color color){
         this.func = func;
+        this.color = color;
         
         int newX = 0;
         int newY = 0;
@@ -37,24 +37,56 @@ public class Function {
         int distBetwLinesX = Axis.getDistanceBetweenLinesX();
         int distBetwLinesY = Axis.getDistanceBetweenLinesY();
         
-        for (double i = startX; i <= endX; i += 0.1) {
+        points.setColor(color);
+        
+        for (double i = startX; i <= endX; i += 0.05) {
             double y = InterperateFunction.interperate(this.func, i);
-            System.out.println("x: " + i + "; y: " + y);
+            //System.out.println("x: " + i + "; y: " + y);
             if (!Double.isNaN(y)) {
                 newX = (int) ((i +  Math.abs(startX)) * distBetwLinesX);
                 newY = (int) ((endY - y) * distBetwLinesY);
-                System.out.println("x: " + newX + "; y: " + newY);
+               // System.out.println("x: " + newX + "; y: " + newY);
                 points.add(new Point(newX, newY));
             }
         }
     }
-    public void draw(Graphics g){
-        points.drawPoints(g);
+    
+    public void draw(Graphics g, Color color){
+        generatePoints();
+        points.drawPoints(g, color);
     } 
+    
+    public void generatePoints(){
+        points.clear();
+        
+        
+        int newX = 0;
+        int newY = 0;
+        
+        int startX = Axis.getStartX();
+        int endX = Math.abs(Axis.getEndX()); 
+        int endY = Math.abs(Axis.getEndY()); 
+       
+        int distBetwLinesX = Axis.getDistanceBetweenLinesX();
+        int distBetwLinesY = Axis.getDistanceBetweenLinesY();
+        
+        points.setColor(color);
+        
+        for (double i = startX; i <= endX; i += 0.05) {
+            double y = InterperateFunction.interperate(this.func, i);
+            //System.out.println("x: " + i + "; y: " + y);
+            if (!Double.isNaN(y)) {
+                newX = (int) ((i +  Math.abs(startX)) * distBetwLinesX);
+                newY = (int) ((endY - y) * distBetwLinesY);
+               // System.out.println("x: " + newX + "; y: " + newY);
+                points.add(new Point(newX, newY));
+            }
+        }
+    }
     
     @Override
     public String toString() {
         return "f(x) = " + func ;
     }
 
-}
+}

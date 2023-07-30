@@ -20,6 +20,7 @@ public class Axis {
     private static int startX = -9, startY = -6, endX = 9, endY = 16;
     private static int distanceBetweenLinesX, distanceBetweenLinesY;
     private static String typOfAxis = "Normal";
+    private static boolean displayNumbers = true;
     
      public static void setTypOfAxis(String typOfAxis) {
         Axis.typOfAxis = typOfAxis;
@@ -41,6 +42,9 @@ public class Axis {
         Axis.endY = endY;
     }
     
+    public static void setDisplayNumbers(boolean bool) {
+        Axis.displayNumbers = bool;
+    }
     
     
 
@@ -91,6 +95,10 @@ public class Axis {
     }
     public static String getTypOfAxis() {
         return typOfAxis;
+    }
+    
+    public static boolean getDisplayNumbers() {
+        return displayNumbers;
     }
     
     
@@ -218,15 +226,42 @@ public class Axis {
             Graphics2D g2D = (Graphics2D) g;
 
             g2D.setStroke(new BasicStroke(3));
-            g2D.setColor(Color.BLACK);
             
             g2D.setColor(new Color(200,200,200));
-
+            
+            int xCounter = startX;
+            
             for (int i = 1; i <= numberOfDivisingLinesX; i++) {
-                g2D.drawLine(width/numberOfDivisingLinesX * i, 0, width/numberOfDivisingLinesX * i, height);
+                
+                
+                int x = width/numberOfDivisingLinesX;
+                
+                if (numberOfDivisingLinesX + startX == endX && displayNumbers) {
+                    xCounter++;
+                    g2D.setColor(Color.BLACK);
+                    g2D.drawString(String.valueOf(xCounter), x * i + 5,  Math.abs(endY) * distanceBetweenLinesY + 15);
+                    g2D.setColor(new Color(200,200,200));
+                }
+                
+                g2D.drawLine(x * i, 0, x * i, height);
             }
-            for (int i = 0; i < numberOfDivisingLinesY; i++) {
-                g2D.drawLine(0, height/numberOfDivisingLinesY * i, width, height/numberOfDivisingLinesY * i);  
+            
+            int yCounter = endY + 1;
+            
+            for (int i = 0; i < numberOfDivisingLinesY; i++) {  
+                
+                int y = height/numberOfDivisingLinesY;
+                
+                if (numberOfDivisingLinesY + startY == endY && displayNumbers) {
+                    yCounter--;
+                    g2D.setColor(Color.BLACK);
+                    g2D.drawString(String.valueOf(yCounter), Math.abs(endX) * distanceBetweenLinesX + 5, y * i - 5);
+                    g2D.setColor(new Color(200,200,200));
+                }
+                
+                g2D.drawLine(0, y * i, width,y * i);
+                
+                
             }
           
         }
